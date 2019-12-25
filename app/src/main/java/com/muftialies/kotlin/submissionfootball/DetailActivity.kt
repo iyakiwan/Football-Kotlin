@@ -1,9 +1,6 @@
 package com.muftialies.kotlin.submissionfootball
 
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +12,7 @@ import com.muftialies.kotlin.submissionfootball.api.ApiRepository
 import com.muftialies.kotlin.submissionfootball.data.LeagueDetail
 import com.muftialies.kotlin.submissionfootball.mvp.leaguedetail.LeagueDetailPresenter
 import com.muftialies.kotlin.submissionfootball.mvp.leaguedetail.LeagueDetailView
-import com.muftialies.kotlin.submissionfootball.ui.main.SectionsPagerAdapter
+import com.muftialies.kotlin.submissionfootball.ui.detailleague.SectionsPagerAdapter
 import com.muftialies.kotlin.submissionfootball.utils.invisible
 import com.muftialies.kotlin.submissionfootball.utils.visible
 import org.jetbrains.anko.alert
@@ -27,20 +24,21 @@ class DetailActivity : AppCompatActivity(), LeagueDetailView{
     companion object {
         const val DETAIL_LEAGUE_ID = "DETAIL_LEAGUE_ID"
         const val DETAIL_LEAGUE_NAME = "DETAIL_LEAGUE_NAME"
+        var ID_LEAGUE =""
     }
 
-    internal var strLeague =""
+    var strLeague ="Wait, Ok"
     private lateinit var presenterLeagueDetail: LeagueDetailPresenter
-    private lateinit var pbDetailLeague: ProgressBar
-    private lateinit var ivLeagueDetail: ImageView
+    /*private lateinit var pbDetailLeague: ProgressBar
+    private lateinit var ivLeagueDetail: ImageView*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        ivLeagueDetail = findViewById(R.id.imgLeagueDetail)
+        /*ivLeagueDetail = findViewById(R.id.imgLeagueDetail)
         pbDetailLeague = findViewById(R.id.progressBarDetailLeague)
-        val tvTitleBar = findViewById<TextView>(R.id.title)
+        val tvTitleBar = findViewById<TextView>(R.id.title)*/
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
@@ -49,22 +47,22 @@ class DetailActivity : AppCompatActivity(), LeagueDetailView{
         tabs.setupWithViewPager(viewPager)
 
         val intent = intent
-        val idLeague = intent.getStringExtra(DETAIL_LEAGUE_ID)
-        val nameLeague = intent.getStringExtra(DETAIL_LEAGUE_NAME)
+        ID_LEAGUE = intent.getStringExtra(DETAIL_LEAGUE_ID)
+        supportActionBar?.title = intent.getStringExtra(DETAIL_LEAGUE_NAME)
 
-        tvTitleBar.text = nameLeague
+//        tvTitleBar.text = intent.getStringExtra(DETAIL_LEAGUE_NAME)
 
         val request = ApiRepository()
         val gson = Gson()
         presenterLeagueDetail = LeagueDetailPresenter(this, request, gson)
 
-        presenterLeagueDetail.getLeagueDetail(idLeague)
+        presenterLeagueDetail.getLeagueDetail(ID_LEAGUE)
 
-        ivLeagueDetail.setOnClickListener {
+       /* ivLeagueDetail.setOnClickListener {
             alert(strLeague, "Info Detail League") {
                 okButton {  }
             }.show()
-        }
+        }*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -73,14 +71,29 @@ class DetailActivity : AppCompatActivity(), LeagueDetailView{
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menuDetailInfoLeague -> {
+                alert(strLeague, "Info Detail League") {
+                    okButton { }
+                }.show()
+
+            }
+            android.R.id.home -> {
+                onBackPressed()
+            }
+        }
+        return true
+    }
+
     override fun showLoading() {
-        pbDetailLeague.visible()
-        ivLeagueDetail.invisible()
+        /*pbDetailLeague.visible()
+        ivLeagueDetail.invisible()*/
     }
 
     override fun hideLoading() {
-        pbDetailLeague.invisible()
-        ivLeagueDetail.visible()
+        /*pbDetailLeague.invisible()
+        ivLeagueDetail.visible()*/
     }
 
     override fun showDetailLeague(data: List<LeagueDetail>) {
