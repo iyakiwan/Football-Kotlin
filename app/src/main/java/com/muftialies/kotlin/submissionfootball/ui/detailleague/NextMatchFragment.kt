@@ -1,15 +1,11 @@
 package com.muftialies.kotlin.submissionfootball.ui.detailleague
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.muftialies.kotlin.submissionfootball.DetailActivity
@@ -31,7 +27,7 @@ import org.jetbrains.anko.support.v4.intentFor
  */
 class NextMatchFragment : Fragment(), LeagueMatchView {
 
-    private var matchs: MutableList<LeagueMatch> = mutableListOf()
+    private var match: MutableList<LeagueMatch> = mutableListOf()
     private lateinit var presenter: LeagueMatchPresenter
     private lateinit var adapter: LeagueMatchAdapter
 
@@ -45,10 +41,15 @@ class NextMatchFragment : Fragment(), LeagueMatchView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = LeagueMatchAdapter(ctx, matchs){
+        adapter = LeagueMatchAdapter(ctx, match) {
             /*val toast = Toast.makeText(ctx, it.eventId, Toast.LENGTH_SHORT)
             toast.show()*/
-            startActivity(intentFor<MatchDetailActivity>(MatchDetailActivity.DETAIL_EVENT_ID to it.eventId, MatchDetailActivity.DETAIL_LEAGUE_NAME to (it.eventHomeTeam + " vs " + it.eventawayTeam)))
+            startActivity(
+                intentFor<MatchDetailActivity>(
+                    MatchDetailActivity.DETAIL_EVENT_ID to it.eventId,
+                    MatchDetailActivity.DETAIL_LEAGUE_NAME to (it.eventHomeTeam + " vs " + it.eventAwayTeam)
+                )
+            )
         }
 
         rv_match.layoutManager = LinearLayoutManager(ctx)
@@ -69,10 +70,15 @@ class NextMatchFragment : Fragment(), LeagueMatchView {
         progressBarLeagueMatch.invisible()
     }
 
-    override fun showDetailMatch(data: List<LeagueMatch>) {
-        matchs.clear()
-        matchs.addAll(data)
-        adapter.notifyDataSetChanged()
+    override fun showDetailMatch(data: List<LeagueMatch>, status: Boolean) {
+        if (status) {
+            match.clear()
+            match.addAll(data)
+            adapter.notifyDataSetChanged()
+        } else {
+            val toast = Toast.makeText(ctx, "Next Match not found", Toast.LENGTH_SHORT)
+            toast.show()
+        }
 
     }
 

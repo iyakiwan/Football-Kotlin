@@ -21,7 +21,7 @@ data class LeagueMatchDetail (
     @SerializedName("intAwayScore")
     var eventDetailAwayScore: String? = null,
 
-    @SerializedName("strDate")
+    @SerializedName("dateEvent")
     var eventDetailDate: String? = null,
 
     @SerializedName("strTime")

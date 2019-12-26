@@ -43,7 +43,9 @@
     <string name="tab_text_1">Last Match</string>
     <string name="tab_text_2">Next Match</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="vs">Vs</string>
     <string name="detail_match">Detail Match</string>
+    <string name="image_view">ImageView</string>
+    <string name="search_event">Search Event</string>
+    <string name="info_league">Info League</string>
 </resources>

@@ -16,7 +16,7 @@ data class LeagueMatch(
     var eventHomeScore: String? = null,
 
     @SerializedName("strAwayTeam")
-    var eventawayTeam: String? = null,
+    var eventAwayTeam: String? = null,
 
     @SerializedName("intAwayScore")
     var eventAwayScore: String? = null

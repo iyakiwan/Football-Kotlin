@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Watford vs Man United" />
+            tools:text="United vs Man United" />
 
         <TextView
             android:id="@+id/textView"
@@ -71,7 +71,8 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/tvLeagueMatchDetailHomeScore"
             app:layout_constraintTop_toBottomOf="@+id/tvLeagueMatchDetailTitle"
-            app:layout_constraintVertical_bias="0.3" />
+            app:layout_constraintVertical_bias="0.3"
+            android:contentDescription="@string/image_view" />
 
         <ImageView
             android:id="@+id/ivLeagueMatchDetailAwayLogo"
@@ -82,7 +83,8 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintStart_toEndOf="@+id/tvLeagueMatchDetailAwayScore"
             app:layout_constraintTop_toBottomOf="@+id/tvLeagueMatchDetailTitle"
-            app:layout_constraintVertical_bias="0.3" />
+            app:layout_constraintVertical_bias="0.3"
+            android:contentDescription="@string/image_view" />
 
         <TextView
             android:id="@+id/tvLeagueMatchDetailHomeTeam"

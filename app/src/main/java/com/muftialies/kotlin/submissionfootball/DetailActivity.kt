@@ -6,19 +6,15 @@ import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.*
 import com.google.gson.Gson
 import com.muftialies.kotlin.submissionfootball.api.ApiRepository
 import com.muftialies.kotlin.submissionfootball.data.LeagueDetail
 import com.muftialies.kotlin.submissionfootball.mvp.leaguedetail.LeagueDetailPresenter
 import com.muftialies.kotlin.submissionfootball.mvp.leaguedetail.LeagueDetailView
 import com.muftialies.kotlin.submissionfootball.ui.detailleague.SectionsPagerAdapter
-import com.muftialies.kotlin.submissionfootball.utils.invisible
-import com.muftialies.kotlin.submissionfootball.utils.visible
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.support.v4.intentFor
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class DetailActivity : AppCompatActivity(), LeagueDetailView{
@@ -29,18 +25,12 @@ class DetailActivity : AppCompatActivity(), LeagueDetailView{
         var ID_LEAGUE =""
     }
 
-    var strLeague ="Wait, Ok"
+    private var strLeague ="Wait, Ok"
     private lateinit var presenterLeagueDetail: LeagueDetailPresenter
-    /*private lateinit var pbDetailLeague: ProgressBar
-    private lateinit var ivLeagueDetail: ImageView*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-
-        /*ivLeagueDetail = findViewById(R.id.imgLeagueDetail)
-        pbDetailLeague = findViewById(R.id.progressBarDetailLeague)
-        val tvTitleBar = findViewById<TextView>(R.id.title)*/
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
@@ -52,19 +42,12 @@ class DetailActivity : AppCompatActivity(), LeagueDetailView{
         ID_LEAGUE = intent.getStringExtra(DETAIL_LEAGUE_ID)
         supportActionBar?.title = intent.getStringExtra(DETAIL_LEAGUE_NAME)
 
-//        tvTitleBar.text = intent.getStringExtra(DETAIL_LEAGUE_NAME)
-
         val request = ApiRepository()
         val gson = Gson()
         presenterLeagueDetail = LeagueDetailPresenter(this, request, gson)
 
         presenterLeagueDetail.getLeagueDetail(ID_LEAGUE)
 
-       /* ivLeagueDetail.setOnClickListener {
-            alert(strLeague, "Info Detail League") {
-                okButton {  }
-            }.show()
-        }*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -89,16 +72,6 @@ class DetailActivity : AppCompatActivity(), LeagueDetailView{
             }
         }
         return true
-    }
-
-    override fun showLoading() {
-        /*pbDetailLeague.visible()
-        ivLeagueDetail.invisible()*/
-    }
-
-    override fun hideLoading() {
-        /*pbDetailLeague.invisible()
-        ivLeagueDetail.visible()*/
     }
 
     override fun showDetailLeague(data: List<LeagueDetail>) {

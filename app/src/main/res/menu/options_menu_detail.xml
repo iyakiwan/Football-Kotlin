@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:menuCategory="container">
         <item android:id="@+id/menuDetailInfoLeague"
-            android:title="Info League"
+            android:title="@string/info_league"
             android:icon = "@drawable/ic_info_white"
-            app:showAsAction="always" />
+            app:showAsAction="ifRoom" />
         <item android:id="@+id/menuDetailSearch"
-            android:title="Search Event"
+            android:title="@string/search_event"
             android:icon = "@drawable/ic_search_white"
             app:showAsAction="always" />
     </group>

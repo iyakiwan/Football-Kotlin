@@ -4,7 +4,8 @@ data class LeagueDetailResponse(
     val leagues: List<LeagueDetail>)
 
 data class LeagueMatchResponse(
-    val events: List<LeagueMatch>)
+    val events: List<LeagueMatch>,
+    val event: List<LeagueMatch>)
 
 data class LeagueMatchDetailResponse(
     val events: List<LeagueMatchDetail>,

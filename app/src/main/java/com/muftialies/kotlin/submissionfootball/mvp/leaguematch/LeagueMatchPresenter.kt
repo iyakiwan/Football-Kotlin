@@ -20,7 +20,11 @@ class LeagueMatchPresenter(private val view: LeagueMatchView,
             )
 
             uiThread {
-                view.showDetailMatch(data.events)
+                try {
+                    view.showDetailMatch(data.events, true)
+                } catch (e: Exception){
+                    view.showDetailMatch(emptyList(), false)
+                }
                 view.hideLoading()
             }
         }
@@ -36,9 +40,28 @@ class LeagueMatchPresenter(private val view: LeagueMatchView,
 
             uiThread {
                 try {
-                    view.showDetailMatch(data.events)
+                    view.showDetailMatch(data.events, true)
                 } catch (e: Exception){
+                    view.showDetailMatch(emptyList(), false)
+                }
+                view.hideLoading()
+            }
+        }
+    }
 
+    fun getLeagueMatchSearchResults(searchKey: String?) {
+        view.showLoading()
+        doAsync {
+            val data = gson.fromJson(apiRepository
+                .doRequest(TheSportDBApi.getLeagueMatchSearch(searchKey)),
+                LeagueMatchResponse::class.java
+            )
+
+            uiThread {
+                try {
+                    view.showDetailMatch(data.event, true)
+                } catch (e: Exception){
+                    view.showDetailMatch(emptyList(), false)
                 }
                 view.hideLoading()
             }

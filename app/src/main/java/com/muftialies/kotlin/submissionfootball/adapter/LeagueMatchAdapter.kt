@@ -34,7 +34,7 @@ class MatchViewHolder(view: View) : RecyclerView.ViewHolder(view){
         itemView.tvLeagueMatchDate.text = event.eventDate
         itemView.tvLeagueMatchHomeTeam.text = event.eventHomeTeam
         itemView.tvLeagueMatchHomeScore.text = event.eventHomeScore
-        itemView.tvLeagueMatchAwayTeam.text = event.eventawayTeam
+        itemView.tvLeagueMatchAwayTeam.text = event.eventAwayTeam
         itemView.tvLeagueMatchAwayScore.text = event.eventAwayScore
 
         itemView.setOnClickListener {

@@ -10,7 +10,7 @@ import com.muftialies.kotlin.submissionfootball.R
 class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm) {
 
-    private val TAB_TITLES = arrayOf(
+    private val tabTitles = arrayOf(
         R.string.tab_text_1,
         R.string.tab_text_2
     )
@@ -25,7 +25,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return context.resources.getString(TAB_TITLES[position])
+        return context.resources.getString(tabTitles[position])
     }
 
     override fun getCount(): Int {

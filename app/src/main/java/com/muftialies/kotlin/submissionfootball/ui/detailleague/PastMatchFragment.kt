@@ -1,7 +1,6 @@
 package com.muftialies.kotlin.submissionfootball.ui.detailleague
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,6 @@ import com.muftialies.kotlin.submissionfootball.mvp.leaguematch.LeagueMatchView
 import com.muftialies.kotlin.submissionfootball.utils.invisible
 import com.muftialies.kotlin.submissionfootball.utils.visible
 import kotlinx.android.synthetic.main.fragment_match.*
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.intentFor
 
@@ -29,7 +27,7 @@ import org.jetbrains.anko.support.v4.intentFor
  */
 class PastMatchFragment : Fragment(), LeagueMatchView {
 
-    private var matchs: MutableList<LeagueMatch> = mutableListOf()
+    private var match: MutableList<LeagueMatch> = mutableListOf()
     private lateinit var presenter: LeagueMatchPresenter
     private lateinit var adapter: LeagueMatchAdapter
 
@@ -44,10 +42,15 @@ class PastMatchFragment : Fragment(), LeagueMatchView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = LeagueMatchAdapter(ctx, matchs){
+        adapter = LeagueMatchAdapter(ctx, match) {
             /*val toast = Toast.makeText(ctx, it.eventId, Toast.LENGTH_SHORT)
             toast.show()*/
-            startActivity(intentFor<MatchDetailActivity>(MatchDetailActivity.DETAIL_EVENT_ID to it.eventId, MatchDetailActivity.DETAIL_LEAGUE_NAME to (it.eventHomeTeam + " vs " + it.eventawayTeam)))
+            startActivity(
+                intentFor<MatchDetailActivity>(
+                    MatchDetailActivity.DETAIL_EVENT_ID to it.eventId,
+                    MatchDetailActivity.DETAIL_LEAGUE_NAME to (it.eventHomeTeam + " vs " + it.eventAwayTeam)
+                )
+            )
         }
 
         rv_match.layoutManager = LinearLayoutManager(ctx)
@@ -57,7 +60,6 @@ class PastMatchFragment : Fragment(), LeagueMatchView {
         val gson = Gson()
         presenter = LeagueMatchPresenter(this, request, gson)
 
-        Log.d("id Liga", DetailActivity.ID_LEAGUE)
         presenter.getLeagueMatchPast(DetailActivity.ID_LEAGUE)
     }
 
@@ -69,10 +71,15 @@ class PastMatchFragment : Fragment(), LeagueMatchView {
         progressBarLeagueMatch.invisible()
     }
 
-    override fun showDetailMatch(data: List<LeagueMatch>) {
-        matchs.clear()
-        matchs.addAll(data)
-        adapter.notifyDataSetChanged()
+    override fun showDetailMatch(data: List<LeagueMatch>, status: Boolean) {
+        if (status) {
+            match.clear()
+            match.addAll(data)
+            adapter.notifyDataSetChanged()
+        } else {
+            val toast = Toast.makeText(ctx, "Past Match not found", Toast.LENGTH_SHORT)
+            toast.show()
+        }
     }
 
 

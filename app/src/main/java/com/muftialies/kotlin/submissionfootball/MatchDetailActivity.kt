@@ -22,7 +22,7 @@ class MatchDetailActivity : AppCompatActivity(), LeagueMatchDetailView {
         const val DETAIL_LEAGUE_NAME = "DETAIL_LEAGUE_NAME"
     }
 
-    var idEvent = ""
+    private var idEvent = ""
     private lateinit var presenter: LeagueMatchDetailPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
