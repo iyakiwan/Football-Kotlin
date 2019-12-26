@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.muftialies.kotlin.submissionfootball.DetailActivity
+import com.muftialies.kotlin.submissionfootball.MatchDetailActivity
 import com.muftialies.kotlin.submissionfootball.R
 import com.muftialies.kotlin.submissionfootball.adapter.LeagueMatchAdapter
 import com.muftialies.kotlin.submissionfootball.api.ApiRepository
@@ -23,6 +24,7 @@ import com.muftialies.kotlin.submissionfootball.utils.invisible
 import com.muftialies.kotlin.submissionfootball.utils.visible
 import kotlinx.android.synthetic.main.fragment_match.*
 import org.jetbrains.anko.support.v4.ctx
+import org.jetbrains.anko.support.v4.intentFor
 
 /**
  * A placeholder fragment containing a simple view.
@@ -44,8 +46,9 @@ class NextMatchFragment : Fragment(), LeagueMatchView {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = LeagueMatchAdapter(ctx, matchs){
-            val toast = Toast.makeText(ctx, it.eventId, Toast.LENGTH_SHORT)
-            toast.show()
+            /*val toast = Toast.makeText(ctx, it.eventId, Toast.LENGTH_SHORT)
+            toast.show()*/
+            startActivity(intentFor<MatchDetailActivity>(MatchDetailActivity.DETAIL_EVENT_ID to it.eventId, MatchDetailActivity.DETAIL_LEAGUE_NAME to (it.eventHomeTeam + " vs " + it.eventawayTeam)))
         }
 
         rv_match.layoutManager = LinearLayoutManager(ctx)

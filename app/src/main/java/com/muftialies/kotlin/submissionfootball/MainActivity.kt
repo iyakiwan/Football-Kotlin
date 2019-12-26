@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity() {
                 layoutManager = LinearLayoutManager(this@MainActivity)
                 adapter = LeagueAdapter(items) {
 
-                    val toast = Toast.makeText(applicationContext, it.name, Toast.LENGTH_SHORT)
-                    toast.show()
+                    /*val toast = Toast.makeText(applicationContext, it.name, Toast.LENGTH_SHORT)
+                    toast.show()*/
                     startActivity<DetailActivity>(DetailActivity.DETAIL_LEAGUE_ID to it.id, DetailActivity.DETAIL_LEAGUE_NAME to it.name)
                 }
             }

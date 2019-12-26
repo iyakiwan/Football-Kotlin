@@ -35,7 +35,11 @@ class LeagueMatchPresenter(private val view: LeagueMatchView,
             )
 
             uiThread {
-                view.showDetailMatch(data.events)
+                try {
+                    view.showDetailMatch(data.events)
+                } catch (e: Exception){
+
+                }
                 view.hideLoading()
             }
         }

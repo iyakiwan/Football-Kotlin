@@ -17,6 +17,8 @@ import com.muftialies.kotlin.submissionfootball.utils.invisible
 import com.muftialies.kotlin.submissionfootball.utils.visible
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.okButton
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.support.v4.intentFor
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class DetailActivity : AppCompatActivity(), LeagueDetailView{
@@ -78,6 +80,9 @@ class DetailActivity : AppCompatActivity(), LeagueDetailView{
                     okButton { }
                 }.show()
 
+            }
+            R.id.menuDetailSearch -> {
+                startActivity<SearchActivity>()
             }
             android.R.id.home -> {
                 onBackPressed()

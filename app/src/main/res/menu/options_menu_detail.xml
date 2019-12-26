@@ -6,5 +6,9 @@
             android:title="Info League"
             android:icon = "@drawable/ic_info_white"
             app:showAsAction="always" />
+        <item android:id="@+id/menuDetailSearch"
+            android:title="Search Event"
+            android:icon = "@drawable/ic_search_white"
+            app:showAsAction="always" />
     </group>
 </menu>

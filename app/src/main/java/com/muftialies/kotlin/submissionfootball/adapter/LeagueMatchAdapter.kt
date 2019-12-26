@@ -24,6 +24,13 @@ class MatchViewHolder(view: View) : RecyclerView.ViewHolder(view){
 
     fun bindItem(event: LeagueMatch, listener: (LeagueMatch) -> Unit) {
 
+        if (event.eventHomeScore.isNullOrEmpty()){
+            event.eventHomeScore = "-"
+        }
+        if (event.eventAwayScore.isNullOrEmpty()){
+            event.eventAwayScore = "-"
+        }
+
         itemView.tvLeagueMatchDate.text = event.eventDate
         itemView.tvLeagueMatchHomeTeam.text = event.eventHomeTeam
         itemView.tvLeagueMatchHomeScore.text = event.eventHomeScore
