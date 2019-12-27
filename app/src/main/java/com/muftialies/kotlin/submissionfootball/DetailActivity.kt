@@ -14,7 +14,6 @@ import com.muftialies.kotlin.submissionfootball.mvp.leaguedetail.LeagueDetailVie
 import com.muftialies.kotlin.submissionfootball.ui.detailleague.SectionsPagerAdapter
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.okButton
-import org.jetbrains.anko.startActivity
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class DetailActivity : AppCompatActivity(), LeagueDetailView{
@@ -63,9 +62,6 @@ class DetailActivity : AppCompatActivity(), LeagueDetailView{
                     okButton { }
                 }.show()
 
-            }
-            R.id.menuDetailSearch -> {
-                startActivity<SearchActivity>()
             }
             android.R.id.home -> {
                 onBackPressed()

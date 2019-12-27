@@ -37,5 +37,23 @@ data class LeagueMatchDetail (
     var eventDetailHomeId: String? = null,
 
     @SerializedName("idAwayTeam")
-    var eventDetailAwayId: String? = null
+    var eventDetailAwayId: String? = null,
+
+    @SerializedName("strHomeGoalDetails")
+    var eventDetailHomeGoal: String? = null,
+
+    @SerializedName("strAwayGoalDetails")
+    var eventDetailAwayGoal: String? = null,
+
+    @SerializedName("strHomeRedCards")
+    var eventDetailHomeRed: String? = null,
+
+    @SerializedName("strAwayRedCards")
+    var eventDetailAwayRed: String? = null,
+
+    @SerializedName("strHomeYellowCards")
+    var eventDetailHomeYellow: String? = null,
+
+    @SerializedName("strAwayYellowCards")
+    var eventDetailAwayYellow: String? = null
 )

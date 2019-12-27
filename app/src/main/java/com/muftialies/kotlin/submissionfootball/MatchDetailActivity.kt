@@ -73,6 +73,19 @@ class MatchDetailActivity : AppCompatActivity(), LeagueMatchDetailView {
         tvLeagueMatchDetailAwayScore.text = data[0].eventDetailAwayScore
         tvLeagueMatchDetailHomeTeam.text = data[0].eventDetailHomeTeam
         tvLeagueMatchDetailAwayTeam.text = data[0].eventDetailAwayTeam
+
+        //Home
+        tvHomeInfo.text = "Home info (" + data[0].eventDetailHomeTeam + ")"
+        tvLeagueMatchHomeGoal.text = "Detail Goal :" + data[0].eventDetailHomeGoal
+        tvLeagueMatchHomeYellow.text = "Yellow Card : " + data[0].eventDetailHomeYellow
+        tvLeagueMatchHomeRed.text = "Red Card : " + data[0].eventDetailHomeRed
+
+        //Away
+        tvAwayInfo.text = "Home info (" + data[0].eventDetailAwayTeam + ")"
+        tvLeagueMatchAwayGoal.text = "Detail Goal :" + data[0].eventDetailAwayGoal
+        tvLeagueMatchAwayYellow.text = "Yellow Card : " + data[0].eventDetailAwayYellow
+        tvLeagueMatchAwayRed.text = "Red Card : " + data[0].eventDetailAwayRed
+
         tvLeagueMatchDetailDate.text = "Date Match : " + data[0].eventDetailDate
         tvLeagueMatchDetailTime.text = "Time Match : " + data[0].eventDetailTime
         tvLeagueMatchDetailRound.text = "Round : " + data[0].eventDetailRound

@@ -3,6 +3,7 @@ package com.muftialies.kotlin.submissionfootball
 import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -44,7 +45,9 @@ class SearchActivity : AppCompatActivity(), LeagueMatchView {
                 lparams(width = matchParent, height = wrapContent)
                 padding = dip(16)
 
-                etQuerySearch = editText().lparams(width = dip(250), height = wrapContent)
+                etQuerySearch = editText{
+                    imeOptions = EditorInfo.IME_ACTION_NEXT
+                }.lparams(width = dip(250), height = wrapContent)
 
                 btSearch = button("Search")
             }
@@ -79,6 +82,8 @@ class SearchActivity : AppCompatActivity(), LeagueMatchView {
         val gson = Gson()
         presenter = LeagueMatchPresenter(this, request, gson)
 
+        supportActionBar?.title = "Search Event Soccer"
+
         btSearch.setOnClickListener {
             presenter.getLeagueMatchSearchResults(etQuerySearch.text.toString())
         }
@@ -101,8 +106,10 @@ class SearchActivity : AppCompatActivity(), LeagueMatchView {
 
     override fun showDetailMatch(data: List<LeagueMatch>, status: Boolean) {
         if (status) {
+            val value: List<LeagueMatch> = data.filter { it.eventSport == "Soccer" }
+
             results.clear()
-            results.addAll(data)
+            results.addAll(value)
             adapter.notifyDataSetChanged()
         } else {
             val toast = Toast.makeText(this, "Data not found", Toast.LENGTH_SHORT)
