@@ -48,4 +48,8 @@
     <string name="image_view">ImageView</string>
     <string name="search_event">Search Event</string>
     <string name="info_league">Info League</string>
+
+    <string name="strLeague">Id League : %1$s\nName League : %2$s\nCountry League : %3$s\nSporty League : %4$s</string>
+    <string name="alertNextMatch">Next Match not found</string>
+    <string name="alertSearch">Data not found</string>
 </resources>

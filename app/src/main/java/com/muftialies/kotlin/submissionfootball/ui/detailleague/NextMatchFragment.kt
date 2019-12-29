@@ -42,8 +42,6 @@ class NextMatchFragment : Fragment(), LeagueMatchView {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = LeagueMatchAdapter(ctx, match) {
-            /*val toast = Toast.makeText(ctx, it.eventId, Toast.LENGTH_SHORT)
-            toast.show()*/
             startActivity(
                 intentFor<MatchDetailActivity>(
                     MatchDetailActivity.DETAIL_EVENT_ID to it.eventId,
@@ -76,7 +74,7 @@ class NextMatchFragment : Fragment(), LeagueMatchView {
             match.addAll(data)
             adapter.notifyDataSetChanged()
         } else {
-            val toast = Toast.makeText(ctx, "Next Match not found", Toast.LENGTH_SHORT)
+            val toast = Toast.makeText(context, context?.resources?.getString(R.string.alertNextMatch), Toast.LENGTH_SHORT)
             toast.show()
         }
 

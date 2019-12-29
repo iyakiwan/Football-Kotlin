@@ -112,7 +112,7 @@ class SearchActivity : AppCompatActivity(), LeagueMatchView {
             results.addAll(value)
             adapter.notifyDataSetChanged()
         } else {
-            val toast = Toast.makeText(this, "Data not found", Toast.LENGTH_SHORT)
+            val toast = Toast.makeText(this, this.resources?.getString(R.string.alertSearch), Toast.LENGTH_SHORT)
             toast.show()
         }
     }

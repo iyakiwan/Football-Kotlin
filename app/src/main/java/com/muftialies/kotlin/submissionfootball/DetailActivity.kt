@@ -1,11 +1,11 @@
 package com.muftialies.kotlin.submissionfootball
 
 import android.os.Bundle
-import com.google.android.material.tabs.TabLayout
-import androidx.viewpager.widget.ViewPager
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
 import com.muftialies.kotlin.submissionfootball.api.ApiRepository
 import com.muftialies.kotlin.submissionfootball.data.LeagueDetail
@@ -16,15 +16,15 @@ import org.jetbrains.anko.alert
 import org.jetbrains.anko.okButton
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class DetailActivity : AppCompatActivity(), LeagueDetailView{
+class DetailActivity : AppCompatActivity(), LeagueDetailView {
 
     companion object {
         const val DETAIL_LEAGUE_ID = "DETAIL_LEAGUE_ID"
         const val DETAIL_LEAGUE_NAME = "DETAIL_LEAGUE_NAME"
-        var ID_LEAGUE =""
+        var ID_LEAGUE = ""
     }
 
-    private var strLeague ="Wait, Ok"
+    private var strLeague = "Wait, Ok"
     private lateinit var presenterLeagueDetail: LeagueDetailPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,10 +71,13 @@ class DetailActivity : AppCompatActivity(), LeagueDetailView{
     }
 
     override fun showDetailLeague(data: List<LeagueDetail>) {
-        strLeague = "Id League : ${data[0].leagueId} \n" +
-                "Name League : ${data[0].leagueName} \n" +
-                "Country League : ${data[0].leagueCountry} \n" +
-                "Sporty League : ${data[0].leagueSport}"
+        strLeague = String.format(
+            resources.getString(R.string.strLeague),
+            data[0].leagueId,
+            data[0].leagueName,
+            data[0].leagueCountry,
+            data[0].leagueSport
+        )
     }
 
 }

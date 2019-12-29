@@ -43,8 +43,6 @@ class PastMatchFragment : Fragment(), LeagueMatchView {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = LeagueMatchAdapter(ctx, match) {
-            /*val toast = Toast.makeText(ctx, it.eventId, Toast.LENGTH_SHORT)
-            toast.show()*/
             startActivity(
                 intentFor<MatchDetailActivity>(
                     MatchDetailActivity.DETAIL_EVENT_ID to it.eventId,
