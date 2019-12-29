@@ -65,6 +65,9 @@ class MainActivity : AppCompatActivity() {
             R.id.menuDetailSearch -> {
                 startActivity<SearchActivity>()
             }
+            R.id.menuMatchFavorite -> {
+                startActivity<FavoriteActivity>()
+            }
         }
         return true
     }

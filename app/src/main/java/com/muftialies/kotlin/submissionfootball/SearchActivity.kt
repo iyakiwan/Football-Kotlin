@@ -82,7 +82,7 @@ class SearchActivity : AppCompatActivity(), LeagueMatchView {
         val gson = Gson()
         presenter = LeagueMatchPresenter(this, request, gson)
 
-        supportActionBar?.title = "Search Event Soccer"
+        supportActionBar?.title = resources.getString(R.string.title_search_activity)
 
         btSearch.setOnClickListener {
             presenter.getLeagueMatchSearchResults(etQuerySearch.text.toString())
@@ -114,6 +114,8 @@ class SearchActivity : AppCompatActivity(), LeagueMatchView {
         } else {
             val toast = Toast.makeText(this, this.resources?.getString(R.string.alertSearch), Toast.LENGTH_SHORT)
             toast.show()
+            results.clear()
+            adapter.notifyDataSetChanged()
         }
     }
 }

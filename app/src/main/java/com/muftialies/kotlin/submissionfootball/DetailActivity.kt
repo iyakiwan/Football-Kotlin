@@ -25,6 +25,7 @@ class DetailActivity : AppCompatActivity(), LeagueDetailView {
     }
 
     private var strLeague = "Wait, Ok"
+    private var loading: Boolean = true
     private lateinit var presenterLeagueDetail: LeagueDetailPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,10 +59,11 @@ class DetailActivity : AppCompatActivity(), LeagueDetailView {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menuDetailInfoLeague -> {
-                alert(strLeague, "Info Detail League") {
-                    okButton { }
-                }.show()
-
+                if (!loading){
+                    alert(strLeague, "Info Detail League") {
+                        okButton { }
+                    }.show()
+                }
             }
             android.R.id.home -> {
                 onBackPressed()
@@ -78,6 +80,7 @@ class DetailActivity : AppCompatActivity(), LeagueDetailView {
             data[0].leagueCountry,
             data[0].leagueSport
         )
+        loading = false
     }
 
 }

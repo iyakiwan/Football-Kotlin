@@ -5,6 +5,10 @@
         <item android:id="@+id/menuDetailSearch"
             android:title="@string/search_event"
             android:icon = "@drawable/ic_search_white"
-            app:showAsAction="always" />
+            app:showAsAction="ifRoom" />
+        <item android:id="@+id/menuMatchFavorite"
+            android:title="@string/favorites"
+            android:icon = "@drawable/ic_favorite_full_white"
+            app:showAsAction="ifRoom" />
     </group>
 </menu>
