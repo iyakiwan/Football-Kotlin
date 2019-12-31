@@ -1,8 +1,10 @@
 package com.muftialies.kotlin.submissionfootball
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
@@ -12,8 +14,8 @@ import com.muftialies.kotlin.submissionfootball.data.LeagueDetail
 import com.muftialies.kotlin.submissionfootball.mvp.leaguedetail.LeagueDetailPresenter
 import com.muftialies.kotlin.submissionfootball.mvp.leaguedetail.LeagueDetailView
 import com.muftialies.kotlin.submissionfootball.ui.detailleague.SectionsPagerAdapter
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.okButton
+import com.squareup.picasso.Picasso
+import org.jetbrains.anko.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class DetailActivity : AppCompatActivity(), LeagueDetailView {
@@ -25,6 +27,7 @@ class DetailActivity : AppCompatActivity(), LeagueDetailView {
     }
 
     private var strLeague = "Wait, Ok"
+    private var strLogo = ""
     private var loading: Boolean = true
     private lateinit var presenterLeagueDetail: LeagueDetailPresenter
 
@@ -60,7 +63,19 @@ class DetailActivity : AppCompatActivity(), LeagueDetailView {
         when (item.itemId) {
             R.id.menuDetailInfoLeague -> {
                 if (!loading){
+                    lateinit var ivLogoLeague: ImageView
+
                     alert(strLeague, "Info Detail League") {
+                        customView {
+                            verticalLayout {
+                                padding = dip(8)
+                                gravity = Gravity.CENTER
+
+                                ivLogoLeague = imageView().lparams(width = dip(50), height = dip(50))
+
+                            }
+                        }
+                        Picasso.get().load(strLogo).fit().into(ivLogoLeague)
                         okButton { }
                     }.show()
                 }
@@ -80,6 +95,7 @@ class DetailActivity : AppCompatActivity(), LeagueDetailView {
             data[0].leagueCountry,
             data[0].leagueSport
         )
+        strLogo = data[0].leagueLogo.toString()
         loading = false
     }
 

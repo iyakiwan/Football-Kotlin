@@ -14,5 +14,8 @@ data class LeagueDetail (
     var leagueCountry: String? = null,
 
     @SerializedName("strSport")
-    var leagueSport: String? = null
+    var leagueSport: String? = null,
+
+    @SerializedName("strBadge")
+    var leagueLogo: String? = null
 )
