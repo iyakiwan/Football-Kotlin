@@ -4,6 +4,9 @@ import com.google.gson.Gson
 import com.muftialies.kotlin.submissionfootball.api.ApiRepository
 import com.muftialies.kotlin.submissionfootball.api.TheSportDBApi
 import com.muftialies.kotlin.submissionfootball.data.LeagueMatchDetailResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -13,34 +16,30 @@ class LeagueMatchDetailPresenter(private val view: LeagueMatchDetailView,
 
     fun getLeagueMatchDetail(leagueId: String?) {
         view.showLoading()
-        doAsync {
+        GlobalScope.launch(Dispatchers.Main){
             val data = gson.fromJson(apiRepository
-                .doRequest(TheSportDBApi.getLeagueMatchDetail(leagueId)),
+                .doRequest(TheSportDBApi.getLeagueMatchDetail(leagueId)).await(),
                 LeagueMatchDetailResponse::class.java
             )
 
-            uiThread {
-                view.showDetailMatchLeague(data.events)
-            }
+            view.showDetailMatchLeague(data.events)
         }
     }
 
     fun getLeagueMatchTeam(teamId1: String?, teamId2: String?) {
-        doAsync {
+        GlobalScope.launch(Dispatchers.Main){
             val data1 = gson.fromJson(apiRepository
-                .doRequest(TheSportDBApi.getLeagueTeamDetail(teamId1)),
+                .doRequest(TheSportDBApi.getLeagueTeamDetail(teamId1)).await(),
                 LeagueMatchDetailResponse::class.java
             )
 
             val data2 = gson.fromJson(apiRepository
-                .doRequest(TheSportDBApi.getLeagueTeamDetail(teamId2)),
+                .doRequest(TheSportDBApi.getLeagueTeamDetail(teamId2)).await(),
                 LeagueMatchDetailResponse::class.java
             )
 
-            uiThread {
-                view.showDetailTeamLeague(data1.teams, data2.teams)
-                view.hideLoading()
-            }
+            view.showDetailTeamLeague(data1.teams, data2.teams)
+            view.hideLoading()
         }
     }
 }
