@@ -5,7 +5,7 @@ import com.muftialies.kotlin.submissionfootball.BuildConfig
 
 object TheSportDBApi {
     fun getLeagueDetail(leagueId: String?): String {
-        return Uri.parse(BuildConfig.BASE_URL).buildUpon()
+        /*return Uri.parse(BuildConfig.BASE_URL).buildUpon()
             .appendPath("api")
             .appendPath("v1")
             .appendPath("json")
@@ -13,11 +13,12 @@ object TheSportDBApi {
             .appendPath("lookupleague.php")
             .appendQueryParameter("id", leagueId)
             .build()
-            .toString()
+            .toString()*/
+        return "${BuildConfig.BASE_URL}api/v1/json/${BuildConfig.TSDB_API_KEY}/lookupleague.php?id=${leagueId}"
     }
 
     fun getLeagueNextMatch(leagueId: String?): String {
-        return Uri.parse(BuildConfig.BASE_URL).buildUpon()
+        /*return Uri.parse(BuildConfig.BASE_URL).buildUpon()
             .appendPath("api")
             .appendPath("v1")
             .appendPath("json")
@@ -25,11 +26,12 @@ object TheSportDBApi {
             .appendPath("eventsnextleague.php")
             .appendQueryParameter("id", leagueId)
             .build()
-            .toString()
+            .toString()*/
+        return "${BuildConfig.BASE_URL}api/v1/json/${BuildConfig.TSDB_API_KEY}/eventsnextleague.php?id=${leagueId}"
     }
 
     fun getLeaguePreviousMatch(leagueId: String?): String {
-        return Uri.parse(BuildConfig.BASE_URL).buildUpon()
+        /*return Uri.parse(BuildConfig.BASE_URL).buildUpon()
             .appendPath("api")
             .appendPath("v1")
             .appendPath("json")
@@ -37,11 +39,12 @@ object TheSportDBApi {
             .appendPath("eventspastleague.php")
             .appendQueryParameter("id", leagueId)
             .build()
-            .toString()
+            .toString()*/
+        return "${BuildConfig.BASE_URL}api/v1/json/${BuildConfig.TSDB_API_KEY}/eventspastleague.php?id=${leagueId}"
     }
 
-    fun getLeagueMatchDetail(leagueId: String?): String {
-        return Uri.parse(BuildConfig.BASE_URL).buildUpon()
+    fun getLeagueMatchDetail(matchId: String?): String {
+        /*return Uri.parse(BuildConfig.BASE_URL).buildUpon()
             .appendPath("api")
             .appendPath("v1")
             .appendPath("json")
@@ -49,11 +52,12 @@ object TheSportDBApi {
             .appendPath("lookupevent.php")
             .appendQueryParameter("id", leagueId)
             .build()
-            .toString()
+            .toString()*/
+        return "${BuildConfig.BASE_URL}api/v1/json/${BuildConfig.TSDB_API_KEY}/lookupevent.php?id=${matchId}"
     }
 
     fun getLeagueTeamDetail(teamId: String?): String {
-        return Uri.parse(BuildConfig.BASE_URL).buildUpon()
+        /*return Uri.parse(BuildConfig.BASE_URL).buildUpon()
             .appendPath("api")
             .appendPath("v1")
             .appendPath("json")
@@ -61,11 +65,12 @@ object TheSportDBApi {
             .appendPath("lookupteam.php")
             .appendQueryParameter("id", teamId)
             .build()
-            .toString()
+            .toString()*/
+        return "${BuildConfig.BASE_URL}api/v1/json/${BuildConfig.TSDB_API_KEY}/lookupteam.php?id=${teamId}"
     }
 
     fun getLeagueMatchSearch(searchKey: String?): String {
-        return Uri.parse(BuildConfig.BASE_URL).buildUpon()
+        /*return Uri.parse(BuildConfig.BASE_URL).buildUpon()
             .appendPath("api")
             .appendPath("v1")
             .appendPath("json")
@@ -73,6 +78,7 @@ object TheSportDBApi {
             .appendPath("searchevents.php")
             .appendQueryParameter("e", searchKey)
             .build()
-            .toString()
+            .toString()*/
+        return "${BuildConfig.BASE_URL}api/v1/json/${BuildConfig.TSDB_API_KEY}/searchevents.php?e=${searchKey}"
     }
 }
