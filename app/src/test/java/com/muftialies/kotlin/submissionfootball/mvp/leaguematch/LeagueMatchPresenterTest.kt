@@ -12,9 +12,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
-import org.junit.Assert.*
 import org.junit.Before
-import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
@@ -33,7 +31,7 @@ class LeagueMatchPresenterTest {
     @Mock
     private lateinit var apiResponse: Deferred<String>
 
-    lateinit var presenter: LeagueMatchPresenter
+    private lateinit var presenter: LeagueMatchPresenter
 
     @Before
     fun setUp(){

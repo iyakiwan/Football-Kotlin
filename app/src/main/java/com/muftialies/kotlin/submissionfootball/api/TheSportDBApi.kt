@@ -1,6 +1,5 @@
 package com.muftialies.kotlin.submissionfootball.api
 
-import android.net.Uri
 import com.muftialies.kotlin.submissionfootball.BuildConfig
 
 object TheSportDBApi {

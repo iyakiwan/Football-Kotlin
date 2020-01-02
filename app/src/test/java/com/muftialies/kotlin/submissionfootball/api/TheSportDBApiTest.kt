@@ -17,12 +17,11 @@ class TheSportDBApiTest {
 
     @Test
     fun getLeagueDetail() {
-        val apiRepository1 = Mockito.mock(ApiRepository::class.java)
+        val apiRepository = Mockito.mock(ApiRepository::class.java)
         val url = TheSportDBApi.getLeagueDetail(leagueId)
 
-        apiRepository1.doRequestAsync(url)
-        Mockito.verify(apiRepository1).doRequestAsync(url)
-
+        apiRepository.doRequestAsync(url)
+        Mockito.verify(apiRepository).doRequestAsync(url)
     }
 
     @Test

@@ -5,7 +5,6 @@ import com.muftialies.kotlin.submissionfootball.api.ApiRepository
 import com.muftialies.kotlin.submissionfootball.api.TheSportDBApi
 import com.muftialies.kotlin.submissionfootball.data.LeagueMatchDetailResponse
 import com.muftialies.kotlin.submissionfootball.utils.CoroutineContextProvider
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 

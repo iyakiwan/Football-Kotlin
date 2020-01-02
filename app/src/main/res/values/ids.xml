@@ -2,4 +2,8 @@
 <resources>
     <item name="tvLeagueImageId" type="id" />
     <item name="tvLeagueNameId" type="id" />
+    <item name="etSearchEvent" type="id" />
+    <item name="btSearchEvent" type="id" />
+    <item name="rvSearchEvent" type="id" />
+    <item name="pbSearchEvent" type="id" />
 </resources>

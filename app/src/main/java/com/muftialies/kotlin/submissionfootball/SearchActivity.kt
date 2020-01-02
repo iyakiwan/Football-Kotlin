@@ -46,20 +46,27 @@ class SearchActivity : AppCompatActivity(), LeagueMatchView {
                 padding = dip(16)
 
                 etQuerySearch = editText{
-                    imeOptions = EditorInfo.IME_ACTION_NEXT
+                    id = R.id.etSearchEvent
+                    lines = 1
+                    imeOptions = EditorInfo.IME_ACTION_SEARCH
+                    hint = "Search in the here"
                 }.lparams(width = dip(250), height = wrapContent)
 
-                btSearch = button("Search")
+                btSearch = button("Search"){
+                    id = R.id.btSearchEvent
+                }
             }
             relativeLayout {
                 lparams(width = matchParent, height = wrapContent)
 
                 listEvent = recyclerView {
-                    lparams(width = matchParent, height = matchParent)
+                    id = R.id.rvSearchEvent
+                    lparams(width = matchParent, height = wrapContent)
                     layoutManager = LinearLayoutManager(context)
                 }
 
                 progressBar = progressBar {
+                    id = R.id.pbSearchEvent
                 }.lparams {
                     centerHorizontally()
                     centerVertically()
@@ -85,7 +92,13 @@ class SearchActivity : AppCompatActivity(), LeagueMatchView {
         supportActionBar?.title = resources.getString(R.string.title_search_activity)
 
         btSearch.setOnClickListener {
-            presenter.getLeagueMatchSearchResults(etQuerySearch.text.toString())
+            if(etQuerySearch.text.isNullOrEmpty()){
+                val toast = Toast.makeText(this, this.resources?.getString(R.string.alertEmptySearch), Toast.LENGTH_SHORT)
+                toast.show()
+            } else {
+                presenter.getLeagueMatchSearchResults(etQuerySearch.text.toString())
+            }
+
         }
     }
 
