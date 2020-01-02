@@ -27,11 +27,9 @@ class SearchActivityTest {
             .check(ViewAssertions.matches(isDisplayed()))
         onView(withId(R.id.btSearchEvent))
             .check(ViewAssertions.matches(isDisplayed()))
-        //cek value edit text
         onView(withId(R.id.etSearchEvent))
-            .perform(typeText("Man United"))
-        onView(withId(R.id.etSearchEvent))
-            .check(ViewAssertions.matches(withText("Man United")))
+            .perform(typeText("United"))
+
         //Cek Displayed recyclerView and progressBar
         onView(withId(R.id.btSearchEvent))
             .perform(click())
