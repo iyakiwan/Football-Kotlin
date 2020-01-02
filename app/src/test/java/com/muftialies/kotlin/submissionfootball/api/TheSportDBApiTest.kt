@@ -2,24 +2,27 @@ package com.muftialies.kotlin.submissionfootball.api
 
 import org.junit.Test
 
-import org.junit.Assert.*
 import org.mockito.Mockito
 
 class TheSportDBApiTest {
 
-    private val leagueId = "4328"
-    private val eventId = "602306"
-    private val teamId = "133619"
-    private val querySearch = "United"
+    companion object {
+        const val leagueId = "4328"
+        const val eventId = "602306"
+        const val teamId = "133619"
+        const val querySearch = "United"
+    }
+
 
 
     @Test
     fun getLeagueDetail() {
-        val apiRepository = Mockito.mock(ApiRepository::class.java)
+        val apiRepository1 = Mockito.mock(ApiRepository::class.java)
         val url = TheSportDBApi.getLeagueDetail(leagueId)
 
-        apiRepository.doRequest(url)
-        Mockito.verify(apiRepository).doRequest(url)
+        apiRepository1.doRequestAsync(url)
+        Mockito.verify(apiRepository1).doRequestAsync(url)
+
     }
 
     @Test
@@ -27,8 +30,8 @@ class TheSportDBApiTest {
         val apiRepository = Mockito.mock(ApiRepository::class.java)
         val url = TheSportDBApi.getLeagueNextMatch(leagueId)
 
-        apiRepository.doRequest(url)
-        Mockito.verify(apiRepository).doRequest(url)
+        apiRepository.doRequestAsync(url)
+        Mockito.verify(apiRepository).doRequestAsync(url)
     }
 
     @Test
@@ -36,8 +39,8 @@ class TheSportDBApiTest {
         val apiRepository = Mockito.mock(ApiRepository::class.java)
         val url = TheSportDBApi.getLeaguePreviousMatch(leagueId)
 
-        apiRepository.doRequest(url)
-        Mockito.verify(apiRepository).doRequest(url)
+        apiRepository.doRequestAsync(url)
+        Mockito.verify(apiRepository).doRequestAsync(url)
     }
 
     @Test
@@ -45,8 +48,8 @@ class TheSportDBApiTest {
         val apiRepository = Mockito.mock(ApiRepository::class.java)
         val url = TheSportDBApi.getLeagueMatchDetail(eventId)
 
-        apiRepository.doRequest(url)
-        Mockito.verify(apiRepository).doRequest(url)
+        apiRepository.doRequestAsync(url)
+        Mockito.verify(apiRepository).doRequestAsync(url)
     }
 
     @Test
@@ -54,8 +57,8 @@ class TheSportDBApiTest {
         val apiRepository = Mockito.mock(ApiRepository::class.java)
         val url = TheSportDBApi.getLeagueTeamDetail(teamId)
 
-        apiRepository.doRequest(url)
-        Mockito.verify(apiRepository).doRequest(url)
+        apiRepository.doRequestAsync(url)
+        Mockito.verify(apiRepository).doRequestAsync(url)
     }
 
     @Test
@@ -63,7 +66,7 @@ class TheSportDBApiTest {
         val apiRepository = Mockito.mock(ApiRepository::class.java)
         val url = TheSportDBApi.getLeagueMatchSearch(querySearch)
 
-        apiRepository.doRequest(url)
-        Mockito.verify(apiRepository).doRequest(url)
+        apiRepository.doRequestAsync(url)
+        Mockito.verify(apiRepository).doRequestAsync(url)
     }
 }
