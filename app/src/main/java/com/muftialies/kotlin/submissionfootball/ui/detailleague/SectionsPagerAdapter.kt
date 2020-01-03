@@ -12,12 +12,14 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
 
     private val tabTitles = arrayOf(
         R.string.tab_text_1,
-        R.string.tab_text_2
+        R.string.tab_text_2,
+        R.string.tab_text_3
     )
 
-    private val pages = listOf<Fragment>(
+    private val pages = listOf(
         PastMatchFragment(),
-        NextMatchFragment()
+        NextMatchFragment(),
+        TeamMatchFragment()
     )
 
     override fun getItem(position: Int): Fragment {

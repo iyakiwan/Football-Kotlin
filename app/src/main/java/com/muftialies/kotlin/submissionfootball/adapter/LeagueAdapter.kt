@@ -13,26 +13,6 @@ import org.jetbrains.anko.*
 class LeagueAdapter(private val itemLeagues: List<League>, private val listener: (League) -> Unit) :
     RecyclerView.Adapter<LeagueAdapter.ViewHolder>() {
 
-    class ItemList : AnkoComponent<ViewGroup> {
-        override fun createView(ui: AnkoContext<ViewGroup>): View = with(ui) {
-            linearLayout {
-                lparams(width = matchParent, height = wrapContent)
-                padding = dip(16)
-
-                imageView {
-                    id = R.id.tvLeagueImageId
-                }.lparams(width = dip(50), height = dip(50))
-
-                textView {
-                    id = R.id.tvLeagueNameId
-                }.lparams(width = wrapContent, height = wrapContent) {
-                    margin = dip(10)
-                }
-            }
-        }
-
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         ItemList().createView(
             AnkoContext.create(parent.context, parent)
@@ -54,6 +34,25 @@ class LeagueAdapter(private val itemLeagues: List<League>, private val listener:
             items.image?.let { Picasso.get().load(it).fit().into(imageLeague) }
             itemView.setOnClickListener {
                 listener(items)
+            }
+        }
+    }
+}
+
+class ItemList : AnkoComponent<ViewGroup> {
+    override fun createView(ui: AnkoContext<ViewGroup>): View = with(ui) {
+        linearLayout {
+            lparams(width = matchParent, height = wrapContent)
+            padding = dip(16)
+
+            imageView {
+                id = R.id.tvLeagueImageId
+            }.lparams(width = dip(50), height = dip(50))
+
+            textView {
+                id = R.id.tvLeagueNameId
+            }.lparams(width = wrapContent, height = wrapContent) {
+                margin = dip(10)
             }
         }
     }

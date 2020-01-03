@@ -56,4 +56,5 @@
     <string name="title_favorite_activity">Favorite Match</string>
     <string name="title_search_activity">Search Event Soccer</string>
     <string name="alertEmptySearch">Please input search</string>
+    <string name="tab_text_3">Team</string>
 </resources>

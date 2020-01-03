@@ -42,6 +42,14 @@ object TheSportDBApi {
         return "${BuildConfig.BASE_URL}api/v1/json/${BuildConfig.TSDB_API_KEY}/eventspastleague.php?id=${leagueId}"
     }
 
+    fun getLeagueStandings(leagueId: String?): String {
+        return "${BuildConfig.BASE_URL}api/v1/json/${BuildConfig.TSDB_API_KEY}/lookuptable.php?l=${leagueId}"
+    }
+
+    fun getLeagueTeamLists(leagueId: String?): String {
+        return "${BuildConfig.BASE_URL}api/v1/json/${BuildConfig.TSDB_API_KEY}/lookup_all_teams.php?id=${leagueId}"
+    }
+
     fun getLeagueMatchDetail(matchId: String?): String {
         /*return Uri.parse(BuildConfig.BASE_URL).buildUpon()
             .appendPath("api")
