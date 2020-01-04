@@ -19,4 +19,5 @@ data class LeagueStandingResponse(
     val teams: List<LeagueDetailTeam>)
 
 data class TeamDetailResponse(
-    val teams: List<LeagueDetailTeam>)
+    val teams: List<LeagueDetailTeam>,
+    val player: List<LeaguePlayer>)

@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -20,6 +21,8 @@ import com.muftialies.kotlin.submissionfootball.mvp.leagueteamdetail.LeagueTeamD
 import com.muftialies.kotlin.submissionfootball.utils.invisible
 import com.muftialies.kotlin.submissionfootball.utils.visible
 import com.muftialies.kotlin.submissionfootball.R.id.add_to_favorite
+import com.muftialies.kotlin.submissionfootball.adapter.LeaguePlayerAdapter
+import com.muftialies.kotlin.submissionfootball.data.LeaguePlayer
 import com.muftialies.kotlin.submissionfootball.favorite.databaseTeam
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.*
@@ -44,6 +47,7 @@ class TeamDetailActivity : AppCompatActivity(), LeagueTeamDetailView {
     private lateinit var teamFormedYear: TextView
     private lateinit var teamStadium: TextView
     private lateinit var teamDescription: TextView
+    private lateinit var teamKeyPlayer: TextView
     private lateinit var scrollView: ScrollView
 
     private lateinit var progressBar: ProgressBar
@@ -54,8 +58,13 @@ class TeamDetailActivity : AppCompatActivity(), LeagueTeamDetailView {
     private var loading: Boolean = false
     private lateinit var favoriteTeam: FavoriteTeam
 
-    private lateinit var  ID_TEAM : String
+    private lateinit var  idTeam : String
+    private lateinit var  nameTeam : String
+
     private lateinit var presenter: LeagueTeamDetailPresenter
+
+    private var player: MutableList<LeaguePlayer> = mutableListOf()
+    private lateinit var adapter: LeaguePlayerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,15 +98,15 @@ class TeamDetailActivity : AppCompatActivity(), LeagueTeamDetailView {
                         this.gravity = Gravity.CENTER
                     }
 
-                    textView ("List Players") {
+                    teamKeyPlayer = textView ("List Players") {
                         textSize = 16f
                         typeface = Typeface.DEFAULT_BOLD
                     }.lparams{topMargin = dip(10)}
 
                     listPlayer = recyclerView {
-                        lparams(width = matchParent, height = wrapContent)
+                        lparams(width = matchParent, height = dip(155))
                         layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL ,false)
-                    }
+                    }.lparams{topMargin = dip(5)}
 
                     teamDescription = textView().lparams {
                         topMargin = dip(20)
@@ -113,8 +122,20 @@ class TeamDetailActivity : AppCompatActivity(), LeagueTeamDetailView {
         }
 
         val intent = intent
-        ID_TEAM = intent.getStringExtra(DETAIL_TEAM_ID)
-        supportActionBar?.title = intent.getStringExtra(DETAIL_TEAM_NAME)
+        idTeam = intent.getStringExtra(DETAIL_TEAM_ID)
+        nameTeam = intent.getStringExtra(DETAIL_TEAM_NAME)
+        supportActionBar?.title = nameTeam
+
+        adapter = LeaguePlayerAdapter(this, player) {
+            /*startActivity(
+                intentFor<MatchDetailActivity>(
+                    MatchDetailActivity.DETAIL_EVENT_ID to it.eventId,
+                    MatchDetailActivity.DETAIL_LEAGUE_NAME to (it.eventHomeTeam + " vs " + it.eventAwayTeam)
+                )
+            )*/
+        }
+
+        listPlayer.adapter = adapter
 
         val request = ApiRepository()
         val gson = Gson()
@@ -150,26 +171,42 @@ class TeamDetailActivity : AppCompatActivity(), LeagueTeamDetailView {
 
     override fun showLoading() {
         progressBar.visible()
+        teamKeyPlayer.invisible()
     }
 
     override fun hideLoading() {
         progressBar.invisible()
+        teamKeyPlayer.visible()
     }
 
     override fun showLeagueDetailTeam(
-        data1: List<LeagueDetailTeam>,
-        data2: List<LeagueDetailTeam>,
+        data: List<LeagueDetailTeam>,
         status: Boolean
     ) {
 
-        favoriteTeam = FavoriteTeam(0,data1[0].teamDetailId,data1[0].teamDetailName,
-            data1[0].teamDetailLogo,data1[0].teamDetailFormedYear,data1[0].teamDetailStadium,data1[0].teamDetailDescription)
+        favoriteTeam = FavoriteTeam(0,data[0].teamDetailId,data[0].teamDetailName,
+            data[0].teamDetailLogo,data[0].teamDetailFormedYear,data[0].teamDetailStadium,data[0].teamDetailDescription)
 
-        Picasso.get().load(data1[0].teamDetailLogo).into(teamBadge)
-        teamName.text = data1[0].teamDetailName
-        teamDescription.text = data1[0].teamDetailDescription
-        teamFormedYear.text = data1[0].teamDetailFormedYear
-        teamStadium.text = data1[0].teamDetailStadium
+        Picasso.get().load(data[0].teamDetailLogo).into(teamBadge)
+        teamName.text = data[0].teamDetailName
+        teamDescription.text = data[0].teamDetailDescription
+        teamFormedYear.text = data[0].teamDetailFormedYear
+        teamStadium.text = data[0].teamDetailStadium
+    }
+
+    override fun showLeagueDetailPlayer(data: List<LeaguePlayer>, status: Boolean) {
+        val value: List<LeaguePlayer> = data.filter { it.teamId == idTeam }
+
+        if (status && value.isNotEmpty()) {
+            player.clear()
+            player.addAll(value)
+            adapter.notifyDataSetChanged()
+        } else {
+            val toast = Toast.makeText(this, this.resources?.getString(R.string.alertSearch), Toast.LENGTH_SHORT)
+            toast.show()
+            player.clear()
+            adapter.notifyDataSetChanged()
+        }
     }
 
     private fun addToFavorite(){
@@ -195,7 +232,7 @@ class TeamDetailActivity : AppCompatActivity(), LeagueTeamDetailView {
         try {
             databaseTeam.use {
                 delete(FavoriteTeam.TABLE_FAVORITE_TEAM, "(TEAM_ID = {id})",
-                    "id" to ID_TEAM)
+                    "id" to idTeam)
             }
             scrollView.snackbar("Removed to favorite").show()
         } catch (e: SQLiteConstraintException){
@@ -214,15 +251,16 @@ class TeamDetailActivity : AppCompatActivity(), LeagueTeamDetailView {
         databaseTeam.use {
             val result = select(FavoriteTeam.TABLE_FAVORITE_TEAM)
                 .whereArgs("(TEAM_ID = {id})",
-                    "id" to ID_TEAM)
+                    "id" to idTeam)
             val favorites = result.parseList(classParser<FavoriteTeam>())
 
             if (favorites.isNotEmpty()){
                 isFavorite = true
                 showDetailMatchLeagueFavorite(favorites[0])
-                progressBar.invisible()
+                presenter.getLeagueDetailPlayer(nameTeam)
             } else{
-                presenter.getLeagueDetailTeams(ID_TEAM)
+                presenter.getLeagueDetailTeams(idTeam)
+                presenter.getLeagueDetailPlayer(nameTeam)
             }
         }
     }

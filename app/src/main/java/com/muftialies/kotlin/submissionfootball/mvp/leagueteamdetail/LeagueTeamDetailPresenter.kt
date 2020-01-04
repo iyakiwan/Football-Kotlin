@@ -16,7 +16,7 @@ class LeagueTeamDetailPresenter(
 ) {
 
     fun getLeagueDetailTeams(leagueId: String?) {
-        view.showLoading()
+//        view.showLoading()
         GlobalScope.launch(context.main) {
             val data = gson.fromJson(
                 apiRepository
@@ -25,9 +25,27 @@ class LeagueTeamDetailPresenter(
             )
 
             try {
-                view.showLeagueDetailTeam(data.teams,emptyList(), true)
+                view.showLeagueDetailTeam(data.teams, true)
             } catch (e: Exception) {
-                view.showLeagueDetailTeam(emptyList(), emptyList(),false)
+                view.showLeagueDetailTeam(emptyList(),false)
+            }
+//            view.hideLoading()
+        }
+    }
+
+    fun getLeagueDetailPlayer(keyTeam: String?) {
+        view.showLoading()
+        GlobalScope.launch(context.main) {
+            val data = gson.fromJson(
+                apiRepository
+                    .doRequestAsync(TheSportDBApi.getLeaguePlayerSearch(keyTeam)).await(),
+                TeamDetailResponse::class.java
+            )
+
+            try {
+                view.showLeagueDetailPlayer(data.player, true)
+            } catch (e: Exception) {
+                view.showLeagueDetailTeam(emptyList(), false)
             }
             view.hideLoading()
         }
