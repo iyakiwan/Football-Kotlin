@@ -17,7 +17,6 @@ import com.google.gson.Gson
 import com.muftialies.kotlin.submissionfootball.DetailActivity
 import com.muftialies.kotlin.submissionfootball.adapter.LeagueStandingAdapter
 import com.muftialies.kotlin.submissionfootball.api.ApiRepository
-import com.muftialies.kotlin.submissionfootball.data.LeagueDetailTeam
 import com.muftialies.kotlin.submissionfootball.data.LeagueStanding
 import com.muftialies.kotlin.submissionfootball.mvp.leaguestanding.LeagueStandingPresenter
 import com.muftialies.kotlin.submissionfootball.mvp.leaguestanding.LeagueStandingView
@@ -31,10 +30,6 @@ import org.jetbrains.anko.support.v4.ctx
  * A simple [Fragment] subclass.
  */
 class StandingFragment : Fragment(), LeagueStandingView {
-
-
-    public var noRank : Int = 0
-
 
     private var standings: MutableList<LeagueStanding> = mutableListOf()
     private lateinit var presenter: LeagueStandingPresenter
@@ -177,7 +172,8 @@ class StandingFragment : Fragment(), LeagueStandingView {
         if (status) {
             var rank = 0
             for (i in data){
-                i.standingTeamRank = rank.plus(1)
+                rank += 1
+                i.standingTeamRank = rank
             }
             standings.clear()
             standings.addAll(data)

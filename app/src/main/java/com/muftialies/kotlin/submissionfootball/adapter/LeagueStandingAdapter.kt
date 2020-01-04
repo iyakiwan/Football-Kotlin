@@ -6,10 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.muftialies.kotlin.submissionfootball.R
-import com.muftialies.kotlin.submissionfootball.data.LeagueDetailTeam
 import com.muftialies.kotlin.submissionfootball.data.LeagueStanding
-import com.muftialies.kotlin.submissionfootball.ui.detailleague.StandingFragment
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_standing_list.view.*
 
 class LeagueStandingAdapter (private val context: Context, private val standings: List<LeagueStanding>, private val listener: (LeagueStanding) -> Unit)

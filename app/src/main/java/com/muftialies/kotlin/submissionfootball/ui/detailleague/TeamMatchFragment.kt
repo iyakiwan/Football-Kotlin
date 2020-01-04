@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.muftialies.kotlin.submissionfootball.DetailActivity
-import com.muftialies.kotlin.submissionfootball.R
 import com.muftialies.kotlin.submissionfootball.TeamDetailActivity
 import com.muftialies.kotlin.submissionfootball.adapter.LeagueTeamsAdapter
 import com.muftialies.kotlin.submissionfootball.api.ApiRepository

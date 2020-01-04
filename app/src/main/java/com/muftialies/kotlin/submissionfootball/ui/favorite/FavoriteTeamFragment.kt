@@ -7,15 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.muftialies.kotlin.submissionfootball.R
 import com.muftialies.kotlin.submissionfootball.TeamDetailActivity
-import com.muftialies.kotlin.submissionfootball.adapter.FavoriteMatchAdapter
 import com.muftialies.kotlin.submissionfootball.adapter.FavoriteTeamAdapter
-import com.muftialies.kotlin.submissionfootball.adapter.LeagueTeamsAdapter
 import com.muftialies.kotlin.submissionfootball.favorite.FavoriteTeam
 import com.muftialies.kotlin.submissionfootball.favorite.databaseTeam
 import org.jetbrains.anko.*
