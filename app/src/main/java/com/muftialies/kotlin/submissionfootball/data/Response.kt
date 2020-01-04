@@ -14,5 +14,9 @@ data class LeagueMatchDetailResponse(
 data class LeagueTeamResponse(
     val teams: List<LeagueTeam>)
 
+data class LeagueStandingResponse(
+    val table: List<LeagueStanding>,
+    val teams: List<LeagueDetailTeam>)
+
 data class TeamDetailResponse(
     val teams: List<LeagueDetailTeam>)

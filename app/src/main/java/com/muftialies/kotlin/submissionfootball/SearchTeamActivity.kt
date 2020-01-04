@@ -73,12 +73,10 @@ class SearchTeamActivity : AppCompatActivity(), LeagueTeamView {
 
         progressBar.invisible()
         adapter = LeagueTeamsAdapter(results) {
-            /*startActivity(
-                intentFor<MatchDetailActivity>(
-                    MatchDetailActivity.DETAIL_EVENT_ID to it.eventId,
-                    MatchDetailActivity.DETAIL_LEAGUE_NAME to (it.eventHomeTeam + " vs " + it.eventAwayTeam)
-                )
-            )*/
+            startActivity<TeamDetailActivity>(
+                TeamDetailActivity.DETAIL_TEAM_ID to it.teamId,
+                TeamDetailActivity.DETAIL_TEAM_NAME to it.teamName
+            )
         }
 
         listTeam.adapter = adapter
