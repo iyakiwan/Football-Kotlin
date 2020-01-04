@@ -1,5 +1,6 @@
 package com.muftialies.kotlin.submissionfootball
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
@@ -8,31 +9,29 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
-import com.muftialies.kotlin.submissionfootball.adapter.LeagueMatchAdapter
+import com.muftialies.kotlin.submissionfootball.adapter.LeagueTeamsAdapter
 import com.muftialies.kotlin.submissionfootball.api.ApiRepository
-import com.muftialies.kotlin.submissionfootball.data.LeagueMatch
-import com.muftialies.kotlin.submissionfootball.mvp.leaguematch.LeagueMatchPresenter
-import com.muftialies.kotlin.submissionfootball.mvp.leaguematch.LeagueMatchView
+import com.muftialies.kotlin.submissionfootball.data.LeagueTeam
+import com.muftialies.kotlin.submissionfootball.mvp.leagueteam.LeagueTeamPresenter
+import com.muftialies.kotlin.submissionfootball.mvp.leagueteam.LeagueTeamView
 import com.muftialies.kotlin.submissionfootball.utils.invisible
 import com.muftialies.kotlin.submissionfootball.utils.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 
-class SearchActivity : AppCompatActivity(), LeagueMatchView {
+class SearchTeamActivity : AppCompatActivity(), LeagueTeamView {
 
-    private lateinit var listEvent: RecyclerView
+    private lateinit var listTeam: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var etQuerySearch: EditText
     private lateinit var btSearch: Button
 
-    private var results: MutableList<LeagueMatch> = mutableListOf()
-    private lateinit var presenter: LeagueMatchPresenter
-    private lateinit var adapter: LeagueMatchAdapter
-
+    private var results: MutableList<LeagueTeam> = mutableListOf()
+    private lateinit var presenter: LeagueTeamPresenter
+    private lateinit var adapter: LeagueTeamsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +45,6 @@ class SearchActivity : AppCompatActivity(), LeagueMatchView {
                 padding = dip(16)
 
                 etQuerySearch = editText{
-                    id = R.id.etSearchEvent
                     lines = 1
                     imeOptions = EditorInfo.IME_ACTION_SEARCH
                     hint = "Search in the here"
@@ -59,8 +57,7 @@ class SearchActivity : AppCompatActivity(), LeagueMatchView {
             relativeLayout {
                 lparams(width = matchParent, height = wrapContent)
 
-                listEvent = recyclerView {
-                    id = R.id.rvSearchEvent
+                listTeam = recyclerView {
                     lparams(width = matchParent, height = wrapContent)
                     layoutManager = LinearLayoutManager(context)
                 }
@@ -75,28 +72,29 @@ class SearchActivity : AppCompatActivity(), LeagueMatchView {
         }
 
         progressBar.invisible()
-        adapter = LeagueMatchAdapter(this, results) {
-            startActivity(
+        adapter = LeagueTeamsAdapter(results) {
+            /*startActivity(
                 intentFor<MatchDetailActivity>(
                     MatchDetailActivity.DETAIL_EVENT_ID to it.eventId,
                     MatchDetailActivity.DETAIL_LEAGUE_NAME to (it.eventHomeTeam + " vs " + it.eventAwayTeam)
                 )
-            )
+            )*/
         }
-        listEvent.adapter = adapter
+
+        listTeam.adapter = adapter
 
         val request = ApiRepository()
         val gson = Gson()
-        presenter = LeagueMatchPresenter(this, request, gson)
+        presenter = LeagueTeamPresenter(this, request, gson)
 
-        supportActionBar?.title = resources.getString(R.string.title_search_activity)
+        supportActionBar?.title = resources.getString(R.string.title_search_activity_2)
 
         btSearch.setOnClickListener {
             if(etQuerySearch.text.isNullOrEmpty()){
                 val toast = Toast.makeText(this, this.resources?.getString(R.string.alertEmptySearch), Toast.LENGTH_SHORT)
                 toast.show()
             } else {
-                presenter.getLeagueMatchSearchResults(etQuerySearch.text.toString())
+                presenter.getLeagueSearchTeams(etQuerySearch.text.toString())
             }
 
         }
@@ -108,7 +106,6 @@ class SearchActivity : AppCompatActivity(), LeagueMatchView {
         }
         return true
     }
-
     override fun showLoading() {
         progressBar.visible()
     }
@@ -117,10 +114,9 @@ class SearchActivity : AppCompatActivity(), LeagueMatchView {
         progressBar.invisible()
     }
 
-    override fun showDetailMatch(data: List<LeagueMatch>, status: Boolean) {
-        if (status) {
-            val value: List<LeagueMatch> = data.filter { it.eventSport == "Soccer" }
-
+    override fun showLeagueTeam(data: List<LeagueTeam>, status: Boolean) {
+        val value: List<LeagueTeam> = data.filter { it.teamSport == "Soccer" }
+        if (status && value.isNotEmpty()) {
             results.clear()
             results.addAll(value)
             adapter.notifyDataSetChanged()

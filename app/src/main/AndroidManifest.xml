@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FavoriteActivity"/>
-        <activity android:name=".SearchActivity" />
+        <activity android:name=".SearchTeamActivity"></activity>
+        <activity android:name=".FavoriteActivity" />
+        <activity android:name=".SearchMatchActivity" />
         <activity android:name=".MatchDetailActivity" />
         <activity
             android:name=".DetailActivity"

@@ -31,4 +31,22 @@ class LeagueTeamPresenter(
             view.hideLoading()
         }
     }
+
+    fun getLeagueSearchTeams(searchKey: String?) {
+        view.showLoading()
+        GlobalScope.launch(context.main) {
+            val data = gson.fromJson(
+                apiRepository
+                    .doRequestAsync(TheSportDBApi.getLeagueTeamSearch(searchKey)).await(),
+                LeagueTeamResponse::class.java
+            )
+
+            try {
+                view.showLeagueTeam(data.teams, true)
+            } catch (e: Exception) {
+                view.showLeagueTeam(emptyList(), false)
+            }
+            view.hideLoading()
+        }
+    }
 }

@@ -14,11 +14,11 @@ import org.junit.runner.RunWith
 
 
 @RunWith(AndroidJUnit4::class)
-class SearchActivityTest {
+class SearchMatchActivityTest {
 
     @Rule
     @JvmField
-    var activityRule = ActivityTestRule(SearchActivity::class.java)
+    var activityRule = ActivityTestRule(SearchMatchActivity::class.java)
 
     @Test
     fun testItemInSearchActivity() {

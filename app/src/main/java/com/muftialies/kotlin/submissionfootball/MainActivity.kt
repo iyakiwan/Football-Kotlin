@@ -1,16 +1,16 @@
 package com.muftialies.kotlin.submissionfootball
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.muftialies.kotlin.submissionfootball.adapter.LeagueAdapter
 import com.muftialies.kotlin.submissionfootball.data.League
-import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.verticalLayout
 
 class MainActivity : AppCompatActivity() {
 
@@ -63,7 +63,29 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menuDetailSearch -> {
-                startActivity<SearchActivity>()
+                lateinit var dialog: DialogInterface
+                dialog = alert("What you want search?", "Mode Search") {
+                    customView {
+                        linearLayout {
+                            padding = dip(8)
+                            orientation = LinearLayout.VERTICAL
+
+                            button("Match"){
+                                setOnClickListener {
+                                    dialog.dismiss()
+                                    startActivity<SearchMatchActivity>()
+                                }
+                            }
+                            button("Team"){
+                                setOnClickListener {
+                                    dialog.dismiss()
+                                    startActivity<SearchTeamActivity>()
+                                }
+                            }
+
+                        }
+                    }
+                }.show()
             }
             R.id.menuMatchFavorite -> {
                 startActivity<FavoriteActivity>()
