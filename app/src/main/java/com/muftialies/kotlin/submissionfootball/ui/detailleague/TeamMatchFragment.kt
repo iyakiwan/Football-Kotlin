@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.muftialies.kotlin.submissionfootball.DetailActivity
 import com.muftialies.kotlin.submissionfootball.R
+import com.muftialies.kotlin.submissionfootball.TeamDetailActivity
 import com.muftialies.kotlin.submissionfootball.adapter.LeagueTeamsAdapter
 import com.muftialies.kotlin.submissionfootball.api.ApiRepository
 import com.muftialies.kotlin.submissionfootball.data.LeagueTeam
@@ -22,6 +23,7 @@ import com.muftialies.kotlin.submissionfootball.utils.invisible
 import com.muftialies.kotlin.submissionfootball.utils.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
+import org.jetbrains.anko.support.v4.intentFor
 
 class TeamMatchFragment : Fragment(), LeagueTeamView{
     private var teams: MutableList<LeagueTeam> = mutableListOf()
@@ -30,12 +32,6 @@ class TeamMatchFragment : Fragment(), LeagueTeamView{
 
     private lateinit var listTeam: RecyclerView
     private lateinit var progressBar: ProgressBar
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return createView(AnkoContext.create(requireContext()))
@@ -62,12 +58,12 @@ class TeamMatchFragment : Fragment(), LeagueTeamView{
         super.onViewCreated(view, savedInstanceState)
 
         adapter = LeagueTeamsAdapter(teams) {
-            /*startActivity(
-                intentFor<MatchDetailActivity>(
-                    MatchDetailActivity.DETAIL_EVENT_ID to it.eventId,
-                    MatchDetailActivity.DETAIL_LEAGUE_NAME to (it.eventHomeTeam + " vs " + it.eventAwayTeam)
+            startActivity(
+                intentFor<TeamDetailActivity>(
+                    TeamDetailActivity.DETAIL_TEAM_ID to it.teamId,
+                    TeamDetailActivity.DETAIL_TEAM_NAME to it.teamName
                 )
-            )*/
+            )
         }
 
         listTeam.adapter = adapter
