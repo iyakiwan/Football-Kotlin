@@ -13,7 +13,7 @@ import com.muftialies.kotlin.submissionfootball.api.ApiRepository
 import com.muftialies.kotlin.submissionfootball.data.LeagueDetail
 import com.muftialies.kotlin.submissionfootball.mvp.leaguedetail.LeagueDetailPresenter
 import com.muftialies.kotlin.submissionfootball.mvp.leaguedetail.LeagueDetailView
-import com.muftialies.kotlin.submissionfootball.ui.detailleague.SectionsPagerAdapter
+import com.muftialies.kotlin.submissionfootball.ui.detailleague.SectionsPagerDetailAdapter
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.*
 
@@ -35,7 +35,7 @@ class DetailActivity : AppCompatActivity(), LeagueDetailView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        val sectionsPagerAdapter = SectionsPagerDetailAdapter(this, supportFragmentManager)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)

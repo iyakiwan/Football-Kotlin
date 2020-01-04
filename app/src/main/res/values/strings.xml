@@ -40,8 +40,8 @@
         <item>@drawable/img_english_league_1</item>
     </array>
     <string name="title_activity_detail">DetailActivity</string>
-    <string name="tab_text_1">Last Match</string>
-    <string name="tab_text_2">Next Match</string>
+    <string name="tab_text_1">Last\nMatch</string>
+    <string name="tab_text_2">Next\nMatch</string>
 
     <string name="vs">Vs</string>
     <string name="detail_match">Detail Match</string>
@@ -53,7 +53,7 @@
     <string name="alertNextMatch">Next Match not found</string>
     <string name="alertSearch">Data not found</string>
     <string name="favorites">favorites</string>
-    <string name="title_favorite_activity">Favorite Match</string>
+    <string name="title_favorite_activity">Favorite List</string>
     <string name="title_search_activity">Search Event Soccer</string>
     <string name="alertEmptySearch">Please input search</string>
     <string name="tab_text_3">Team</string>
@@ -61,4 +61,5 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tab_text_4">Standing</string>
+    <string name="tab_text_5">Match</string>
 </resources>

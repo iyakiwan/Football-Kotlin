@@ -6,32 +6,32 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.muftialies.kotlin.submissionfootball.R
-import com.muftialies.kotlin.submissionfootball.favorite.Favorite
+import com.muftialies.kotlin.submissionfootball.favorite.FavoriteMatch
 import kotlinx.android.synthetic.main.item_match_list.view.*
 
-class FavoriteMatchAdapter (private val context: Context, private val events: List<Favorite>, private val listener: (Favorite) -> Unit)
-    : RecyclerView.Adapter<FavoriteViewHolder>() {
+class FavoriteMatchAdapter (private val context: Context, private val events: List<FavoriteMatch>, private val listener: (FavoriteMatch) -> Unit)
+    : RecyclerView.Adapter<FavoriteMatchViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        FavoriteViewHolder(LayoutInflater.from(context).inflate(R.layout.item_match_list, parent, false))
+        FavoriteMatchViewHolder(LayoutInflater.from(context).inflate(R.layout.item_match_list, parent, false))
 
-    override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
-        holder.bindItem(events[position], listener)
+    override fun onBindViewHolder(holderMatch: FavoriteMatchViewHolder, position: Int) {
+        holderMatch.bindItem(events[position], listener)
     }
     override fun getItemCount(): Int = events.size
 }
 
-class FavoriteViewHolder(view: View) : RecyclerView.ViewHolder(view){
+class FavoriteMatchViewHolder(view: View) : RecyclerView.ViewHolder(view){
 
-    fun bindItem(favorite: Favorite, listener: (Favorite) -> Unit) {
+    fun bindItem(favoriteMatch: FavoriteMatch, listener: (FavoriteMatch) -> Unit) {
 
-        itemView.tvLeagueMatchDate.text = favorite.favoriteDetailDate
-        itemView.tvLeagueMatchHomeTeam.text = favorite.favoriteDetailHomeTeam
-        itemView.tvLeagueMatchHomeScore.text = favorite.favoriteDetailHomeScore
-        itemView.tvLeagueMatchAwayTeam.text = favorite.favoriteDetailAwayTeam
-        itemView.tvLeagueMatchAwayScore.text = favorite.favoriteDetailAwayScore
+        itemView.tvLeagueMatchDate.text = favoriteMatch.favoriteDetailDate
+        itemView.tvLeagueMatchHomeTeam.text = favoriteMatch.favoriteDetailHomeTeam
+        itemView.tvLeagueMatchHomeScore.text = favoriteMatch.favoriteDetailHomeScore
+        itemView.tvLeagueMatchAwayTeam.text = favoriteMatch.favoriteDetailAwayTeam
+        itemView.tvLeagueMatchAwayScore.text = favoriteMatch.favoriteDetailAwayScore
 
         itemView.setOnClickListener {
-            listener(favorite)
+            listener(favoriteMatch)
         }
     }
 }

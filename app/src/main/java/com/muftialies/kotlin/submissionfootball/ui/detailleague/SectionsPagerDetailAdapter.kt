@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.muftialies.kotlin.submissionfootball.R
 
 @Suppress("DEPRECATION")
-class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
+class SectionsPagerDetailAdapter(private val context: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm) {
 
     private val tabTitles = arrayOf(

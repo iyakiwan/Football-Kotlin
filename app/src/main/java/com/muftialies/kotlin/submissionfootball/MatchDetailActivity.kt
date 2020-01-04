@@ -17,8 +17,8 @@ import com.muftialies.kotlin.submissionfootball.utils.invisible
 import com.muftialies.kotlin.submissionfootball.utils.visible
 import com.muftialies.kotlin.submissionfootball.R.menu.detail_menu_match
 import com.muftialies.kotlin.submissionfootball.R.id.add_to_favorite
-import com.muftialies.kotlin.submissionfootball.favorite.Favorite
-import com.muftialies.kotlin.submissionfootball.favorite.database
+import com.muftialies.kotlin.submissionfootball.favorite.FavoriteMatch
+import com.muftialies.kotlin.submissionfootball.favorite.databaseMatch
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_match_detail.*
 import org.jetbrains.anko.db.classParser
@@ -37,7 +37,7 @@ class MatchDetailActivity : AppCompatActivity(), LeagueMatchDetailView {
     private var menuItem: Menu? = null
     private var isFavorite: Boolean = false
     private var loading: Boolean = false
-    private lateinit var favorite: Favorite
+    private lateinit var favoriteMatch: FavoriteMatch
 
     private lateinit var idEvent : String
     private lateinit var presenter: LeagueMatchDetailPresenter
@@ -109,7 +109,7 @@ class MatchDetailActivity : AppCompatActivity(), LeagueMatchDetailView {
             data[0].eventDetailAwayScore = "-"
         }
 
-        favorite = Favorite(0,data[0].eventDetailId,data[0].eventDetailName,data[0].eventDetailDate,data[0].eventDetailTime,data[0].eventDetailRound,
+        favoriteMatch = FavoriteMatch(0,data[0].eventDetailId,data[0].eventDetailName,data[0].eventDetailDate,data[0].eventDetailTime,data[0].eventDetailRound,
             data[0].eventDetailSeason,data[0].eventDetailHomeId,data[0].eventDetailHomeTeam,data[0].eventDetailHomeScore,data[0].eventDetailHomeGoal,
             data[0].eventDetailHomeRed,data[0].eventDetailHomeYellow,"",data[0].eventDetailAwayId,data[0].eventDetailAwayTeam,
             data[0].eventDetailAwayScore,data[0].eventDetailAwayGoal,data[0].eventDetailAwayRed,data[0].eventDetailAwayYellow,"")
@@ -143,8 +143,8 @@ class MatchDetailActivity : AppCompatActivity(), LeagueMatchDetailView {
         data1: List<LeagueDetailTeam>,
         data2: List<LeagueDetailTeam>
     ) {
-        favorite.favoriteDetailHomeLogo = data1[0].teamDetailLogo
-        favorite.favoriteDetailAwayLogo = data2[0].teamDetailLogo
+        favoriteMatch.favoriteDetailHomeLogo = data1[0].teamDetailLogo
+        favoriteMatch.favoriteDetailAwayLogo = data2[0].teamDetailLogo
 
         Picasso.get().load(data1[0].teamDetailLogo).fit().into(ivLeagueMatchDetailHomeLogo)
         Picasso.get().load(data2[0].teamDetailLogo).fit().into(ivLeagueMatchDetailAwayLogo)
@@ -152,29 +152,29 @@ class MatchDetailActivity : AppCompatActivity(), LeagueMatchDetailView {
 
     private fun addToFavorite(){
         try {
-            database.use {
+            databaseMatch.use {
                 insert(
-                    Favorite.TABLE_FAVORITE,
-                    Favorite.MATCH_ID to favorite.favoriteDetailId,
-                    Favorite.MATCH_NAME to favorite.favoriteDetailName,
-                    Favorite.MATCH_DATE to favorite.favoriteDetailDate,
-                    Favorite.MATCH_TIME to favorite.favoriteDetailTime,
-                    Favorite.MATCH_ROUND to favorite.favoriteDetailRound,
-                    Favorite.MATCH_SESSION to favorite.favoriteDetailSeason,
-                    Favorite.MATCH_HOME_ID to favorite.favoriteDetailHomeId,
-                    Favorite.MATCH_HOME_TEAM to favorite.favoriteDetailHomeTeam,
-                    Favorite.MATCH_HOME_SCORE to favorite.favoriteDetailHomeScore,
-                    Favorite.MATCH_HOME_GOAL to favorite.favoriteDetailHomeGoal,
-                    Favorite.MATCH_HOME_RED to favorite.favoriteDetailHomeRed,
-                    Favorite.MATCH_HOME_YELLOW to favorite.favoriteDetailHomeYellow,
-                    Favorite.MATCH_HOME_LOGO to favorite.favoriteDetailHomeLogo,
-                    Favorite.MATCH_AWAY_ID to favorite.favoriteDetailAwayId,
-                    Favorite.MATCH_AWAY_TEAM to favorite.favoriteDetailAwayTeam,
-                    Favorite.MATCH_AWAY_SCORE to favorite.favoriteDetailAwayScore,
-                    Favorite.MATCH_AWAY_GOAL to favorite.favoriteDetailAwayGoal,
-                    Favorite.MATCH_AWAY_RED to favorite.favoriteDetailAwayRed,
-                    Favorite.MATCH_AWAY_YELLOW to favorite.favoriteDetailAwayYellow,
-                    Favorite.MATCH_AWAY_LOGO to favorite.favoriteDetailAwayLogo)
+                    FavoriteMatch.TABLE_FAVORITE_MATCH,
+                    FavoriteMatch.MATCH_ID to favoriteMatch.favoriteDetailId,
+                    FavoriteMatch.MATCH_NAME to favoriteMatch.favoriteDetailName,
+                    FavoriteMatch.MATCH_DATE to favoriteMatch.favoriteDetailDate,
+                    FavoriteMatch.MATCH_TIME to favoriteMatch.favoriteDetailTime,
+                    FavoriteMatch.MATCH_ROUND to favoriteMatch.favoriteDetailRound,
+                    FavoriteMatch.MATCH_SESSION to favoriteMatch.favoriteDetailSeason,
+                    FavoriteMatch.MATCH_HOME_ID to favoriteMatch.favoriteDetailHomeId,
+                    FavoriteMatch.MATCH_HOME_TEAM to favoriteMatch.favoriteDetailHomeTeam,
+                    FavoriteMatch.MATCH_HOME_SCORE to favoriteMatch.favoriteDetailHomeScore,
+                    FavoriteMatch.MATCH_HOME_GOAL to favoriteMatch.favoriteDetailHomeGoal,
+                    FavoriteMatch.MATCH_HOME_RED to favoriteMatch.favoriteDetailHomeRed,
+                    FavoriteMatch.MATCH_HOME_YELLOW to favoriteMatch.favoriteDetailHomeYellow,
+                    FavoriteMatch.MATCH_HOME_LOGO to favoriteMatch.favoriteDetailHomeLogo,
+                    FavoriteMatch.MATCH_AWAY_ID to favoriteMatch.favoriteDetailAwayId,
+                    FavoriteMatch.MATCH_AWAY_TEAM to favoriteMatch.favoriteDetailAwayTeam,
+                    FavoriteMatch.MATCH_AWAY_SCORE to favoriteMatch.favoriteDetailAwayScore,
+                    FavoriteMatch.MATCH_AWAY_GOAL to favoriteMatch.favoriteDetailAwayGoal,
+                    FavoriteMatch.MATCH_AWAY_RED to favoriteMatch.favoriteDetailAwayRed,
+                    FavoriteMatch.MATCH_AWAY_YELLOW to favoriteMatch.favoriteDetailAwayYellow,
+                    FavoriteMatch.MATCH_AWAY_LOGO to favoriteMatch.favoriteDetailAwayLogo)
             }
 
             activity_match_detail.snackbar("Added to favorite").show()
@@ -185,8 +185,8 @@ class MatchDetailActivity : AppCompatActivity(), LeagueMatchDetailView {
 
     private fun removeFromFavorite(){
         try {
-            database.use {
-                delete(Favorite.TABLE_FAVORITE, "(MATCH_ID = {id})",
+            databaseMatch.use {
+                delete(FavoriteMatch.TABLE_FAVORITE_MATCH, "(MATCH_ID = {id})",
                     "id" to idEvent)
             }
             activity_match_detail.snackbar("Removed to favorite").show()
@@ -203,11 +203,11 @@ class MatchDetailActivity : AppCompatActivity(), LeagueMatchDetailView {
     }
 
     private fun favoriteState(){
-        database.use {
-            val result = select(Favorite.TABLE_FAVORITE)
+        databaseMatch.use {
+            val result = select(FavoriteMatch.TABLE_FAVORITE_MATCH)
                 .whereArgs("(MATCH_ID = {id})",
                     "id" to idEvent)
-            val favorites = result.parseList(classParser<Favorite>())
+            val favorites = result.parseList(classParser<FavoriteMatch>())
 
             if (favorites.isNotEmpty()){
                 isFavorite = true
@@ -220,7 +220,7 @@ class MatchDetailActivity : AppCompatActivity(), LeagueMatchDetailView {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showDetailMatchLeagueFavorite(data: Favorite) {
+    private fun showDetailMatchLeagueFavorite(data: FavoriteMatch) {
         tvLeagueMatchDetailTitle.text = data.favoriteDetailName
 
         tvLeagueMatchDetailHomeScore.text = data.favoriteDetailHomeScore
@@ -249,6 +249,6 @@ class MatchDetailActivity : AppCompatActivity(), LeagueMatchDetailView {
         Picasso.get().load(data.favoriteDetailHomeLogo).fit().into(ivLeagueMatchDetailHomeLogo)
         Picasso.get().load(data.favoriteDetailAwayLogo).fit().into(ivLeagueMatchDetailAwayLogo)
 
-        favorite = data
+        favoriteMatch = data
     }
 }
